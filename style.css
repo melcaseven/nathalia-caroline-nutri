@@ -706,3 +706,14 @@ p  { margin: 0; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-actions .btn { justify-content: center; }
 }
+.brand-mark-img {
+  height: 28px;
+  width: auto;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
