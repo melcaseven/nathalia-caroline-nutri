@@ -143,3 +143,55 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   buildDots();
 })();
+
+// Ativa os pontinhos do carrossel no celular
+(function initPlansCarousel() {
+  const grid = document.querySelector('.plans-grid');
+  const dotsWrap = document.getElementById('plansDots');
+  if (!grid || !dotsWrap) return;
+
+  const plans = Array.from(grid.querySelectorAll('.plan'));
+
+  const buildDots = () => {
+    if (window.innerWidth > 720) {
+      dotsWrap.innerHTML = '';
+      return;
+    }
+
+    dotsWrap.innerHTML = '';
+    plans.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('role', 'tab');
+      if (i === 0) btn.setAttribute('aria-selected', 'true');
+      btn.addEventListener('click', () => {
+        plans[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      });
+      dotsWrap.appendChild(btn);
+    });
+  };
+
+  grid.addEventListener('scroll', () => {
+    if (window.innerWidth > 720) return;
+    const gridCenter = grid.getBoundingClientRect().left + grid.offsetWidth / 2;
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    plans.forEach((plan, i) => {
+      const rect = plan.getBoundingClientRect();
+      const planCenter = rect.left + rect.width / 2;
+      const distance = Math.abs(gridCenter - planCenter);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = i;
+      }
+    });
+
+    Array.from(dotsWrap.children).forEach((dot, i) => {
+      dot.setAttribute('aria-selected', i === closestIndex ? 'true' : 'false');
+    });
+  });
+
+  window.addEventListener('resize', buildDots);
+  buildDots();
+})();
