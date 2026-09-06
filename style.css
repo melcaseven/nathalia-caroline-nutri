@@ -522,6 +522,68 @@ p  { margin: 0; }
 }
 
 /* =========================================
+   LOCAL DE ATENDIMENTO
+   ========================================= */
+.location-card {
+  margin-top: var(--space-2xl);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.location-info {
+  background: var(--color-bg-soft);
+  padding: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  justify-content: center;
+}
+.location-info .eyebrow { align-self: flex-start; }
+.location-name {
+  color: var(--color-primary);
+  margin: 4px 0 6px;
+}
+.location-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.location-icon {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  flex-shrink: 0;
+}
+.location-detail p {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+.location-cta {
+  margin-top: var(--space-sm);
+  align-self: flex-start;
+}
+.location-image {
+  min-height: 340px;
+  background: var(--color-bg-soft);
+}
+.location-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .location-card { grid-template-columns: 1fr; }
+  .location-image { min-height: 280px; order: -1; }
+}
+
+@media (max-width: 720px) {
+  .location-info { padding: var(--space-xl); }
+  .location-cta { align-self: stretch; justify-content: center; }
+}
+
+/* =========================================
    TESTIMONIALS
    ========================================= */
 .testimonials {
