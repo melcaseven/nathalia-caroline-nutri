@@ -301,7 +301,25 @@ p  { margin: 0; }
 /* Ajustes no mobile */
 @media (max-width: 720px) {
   .hero {
-    background-position: 75% center;
+    min-height: auto;
+    padding: 120px 0 64px;
+    background-position: 68% 12%;
+    isolation: isolate; /* garante que o overlay fique só dentro do hero */
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      180deg,
+      rgba(36, 27, 23, 0.55) 0%,
+      rgba(36, 27, 23, 0.35) 40%,
+      rgba(36, 27, 23, 0.8) 100%
+    );
+  }
+  .hero-badges {
+    border-top-color: rgba(255, 255, 255, 0.25);
   }
   .hero-float-card {
     right: 20px;
