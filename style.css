@@ -301,30 +301,85 @@ p  { margin: 0; }
 /* Ajustes no mobile */
 @media (max-width: 720px) {
   .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: none;
     min-height: auto;
-    padding: 120px 0 64px;
-    background-position: 68% 12%;
-    isolation: isolate; /* garante que o overlay fique só dentro do hero */
+    padding: var(--space-xl) 0 var(--space-2xl);
   }
+
+  /* Não precisamos mais do overlay escuro: a foto sai do fundo e
+     passa a ser um bloco próprio, com o texto vindo depois, em fundo claro */
   .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(
-      180deg,
-      rgba(36, 27, 23, 0.55) 0%,
-      rgba(36, 27, 23, 0.35) 40%,
-      rgba(36, 27, 23, 0.8) 100%
-    );
+    display: none;
+  }
+
+  /* Mostra a foto como um bloco normal, no topo, com o rosto livre.
+     Full-bleed (sem respiro nas laterais) e sem cantos/sombra de "card" —
+     ela se dissolve no fundo da página em vez de cortar seco. */
+  .hero-image-full {
+    display: block;
+    order: -1;
+    padding: 0;
+    margin-bottom: var(--space-xl);
+  }
+  .hero-person-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    height: auto;
+    object-fit: cover;
+    object-position: 80% 30%;
+    border-radius: 0;
+    box-shadow: none;
+    /* leve tratamento de cor pra ficar mais suave/editorial */
+    filter: saturate(0.9) contrast(0.96) brightness(1.03);
+    /* dissolve os últimos ~25% da imagem no fundo da página */
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+  }
+  /* O card flutuante "Atendimento online e presencial" não combina
+     com esse estilo mais limpo de referência, então some no mobile */
+  .hero-float-card {
+    display: none;
+  }
+
+  .hero-copy {
+    padding: 0;
+    max-width: none;
+    text-align: center;
+  }
+  .hero-actions {
+    justify-content: center;
   }
   .hero-badges {
-    border-top-color: rgba(255, 255, 255, 0.25);
+    justify-content: center;
   }
-  .hero-float-card {
-    right: 20px;
-    bottom: 20px;
+
+  /* Como o texto não fica mais sobre a foto, volta a usar as cores
+     padrão do site (escuro sobre claro) em vez do texto branco */
+  .hero-copy .eyebrow {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    border: none;
   }
+  .hero-copy h1 {
+    color: var(--color-text) !important;
+    text-shadow: none;
+  }
+  .hero-copy .lead {
+    color: var(--color-text-muted) !important;
+    opacity: 1;
+  }
+  .hero-actions .btn-ghost {
+    color: var(--color-primary) !important;
+  }
+  .hero-badges {
+    border-top-color: var(--color-border);
+  }
+  .hero-badges strong { color: var(--color-primary) !important; }
+  .hero-badges span { color: var(--color-text-muted) !important; }
 }
 
 /* =========================================
@@ -810,10 +865,22 @@ p  { margin: 0; }
   .nav-cta { display: none; }
   .menu-toggle { display: block; }
 
+  /* Header bem mais enxuto no mobile */
+  .header-inner { height: 30px; }
+  .brand-mark-img { height: 22px; }
+  .brand-name { font-size: 0.85rem; }
+  .menu-toggle { width: 32px; height: 32px; }
+  .menu-toggle span { left: 6px; right: 6px; }
+  .menu-toggle span:nth-child(1) { top: 16px; }
+  .menu-toggle span:nth-child(2) { top: 20px; }
+  .menu-toggle span:nth-child(3) { top: 24px; }
+  .menu-toggle.open span:nth-child(1) { top: 20px; }
+  .menu-toggle.open span:nth-child(3) { top: 20px; }
+
   .nav.mobile-open {
     display: flex;
     position: absolute;
-    top: 72px; left: 0; right: 0;
+    top: 52px; left: 0; right: 0;
     background: #F7F3EE;
     flex-direction: column;
     gap: 0;
