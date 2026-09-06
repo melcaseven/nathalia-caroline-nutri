@@ -500,7 +500,7 @@ p  { margin: 0; }
 }
 
 /* =========================================
-   ABOUT
+   ABOUT (SOBRE MIM)
    ========================================= */
 .about-image {
   aspect-ratio: 4 / 5;
@@ -510,6 +510,16 @@ p  { margin: 0; }
   max-width: 480px;
 }
 .about-image img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Espaçamento do título "Nathalia Caroline" para o texto abaixo */
+.about h2 {
+  margin-bottom: 1.25rem;
+}
+
+/* Espaçamento entre um parágrafo e outro dentro da seção Sobre */
+.about p + p {
+  margin-top: 1rem;
+}
 
 /* =========================================
    TESTIMONIALS
